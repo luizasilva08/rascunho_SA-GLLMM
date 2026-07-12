@@ -312,11 +312,15 @@ def api_rodar_analise():
 def api_enviar_email():
     try:
         from analise.email_relatorio import enviar_relatorio_email
-        enviar_relatorio_email()
+        # rodar_pipeline_antes=False: reaproveita os CSVs/gráficos já gerados
+        # pelo botão "Gerar Gráficos e CSVs". Rodar a análise completa de novo
+        # aqui consome memória demais pro plano gratuito do Render e derruba
+        # o worker (SIGKILL / out of memory).
+        enviar_relatorio_email(rodar_pipeline_antes=False)
         return jsonify({"mensagem": "Relatório enviado por e-mail com sucesso!"})
     except Exception as e:
         return _erro(f"Erro ao enviar e-mail: {str(e)}", 500)
-
+        
 if __name__ == "__main__":
     _porta = int(os.environ.get("PORT", 3000))
     print(f"\n🧳 LuxeVoyage — site rodando em http://localhost:{_porta}  (Ctrl+C para parar)\n")
