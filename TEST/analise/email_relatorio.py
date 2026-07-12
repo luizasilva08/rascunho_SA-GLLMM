@@ -89,7 +89,7 @@ def enviar_relatorio_email(rodar_pipeline_antes=True):
     remetente = os.getenv("EMAIL_REMETENTE")
     destinatario = os.getenv("EMAIL_DESTINATARIO")
     senha = os.getenv("EMAIL_SENHA")
-    usar_oauth = _CREDENTIALS_JSON.exists()
+    usar_oauth = _tem_credentials_oauth()
 
     faltando = []
     if not remetente: faltando.append("EMAIL_REMETENTE")
