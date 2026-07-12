@@ -14,7 +14,12 @@ PASTA_ZIPS = os.path.join("saida", "email_enviados")
 
 # Pasta TEST/ (mesma pasta onde o gmail_api.py procura credentials.json/token.json)
 _PASTA_TEST = pathlib.Path(__file__).resolve().parent.parent
-_CREDENTIALS_JSON = _PASTA_TEST / "credentials.json"
+_CREDENTIALS_LOCAL = _PASTA_TEST / "credentials.json"
+_CREDENTIALS_RENDER = pathlib.Path("/etc/secrets/credentials.json")
+
+def _tem_credentials_oauth():
+    """True se credentials.json existir localmente (TEST/) OU como Secret File no Render."""
+    return _CREDENTIALS_LOCAL.exists() or _CREDENTIALS_RENDER.exists()
 
 
 def _listar_arquivos(pasta, extensao):
