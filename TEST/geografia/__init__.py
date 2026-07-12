@@ -1,0 +1,1 @@
+"""Domínio: localização (Estado, Município)."""
